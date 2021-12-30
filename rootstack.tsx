@@ -7,7 +7,9 @@ import { createStackNavigator } from '@react-navigation/stack'
 
 const Stack = createStackNavigator<RootStackParamList>()
 
-const RootStack = () => (
+export type Props = {}
+
+const RootStack: React.FC<Props> = (): JSX.Element => (
   <NavigationContainer>
     <Stack.Navigator>
       <Stack.Screen name="Main" component={MainScreen} />
