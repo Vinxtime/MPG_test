@@ -1,0 +1,56 @@
+{
+  "parser": "babel-eslint",
+  "extends": [
+    "semistandard",
+    "plugin:react/recommended",
+    "eslint:all"
+  ],
+  "plugins": [
+    "react",
+    "react-native",
+    "babel"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 8,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true,
+      "legacyDecorators": true
+    }
+  },
+  "env" : {
+    "es6": true,
+    "node": true,
+    "browser": true
+  },
+  "rules": {
+    "array-element-newline": "off",
+    "arrow-parens": "off",
+    "babel/no-invalid-this": "error",
+    "class-methods-use-this": ["error", { "exceptMethods": ["render"] }],
+    "id-length": ["error", { "exceptions": ["i", "j", "x", "y"] }],
+    "implicit-arrow-linebreak": "off",
+    "function-paren-newline": "off",
+    "max-len": ["error", { "code": 120 }],
+    "max-lines-per-function": ["error", { "max": 200 }],
+    "max-params": ["error", { "max": 4 }],
+    "multiline-ternary": "off",
+    "no-duplicate-imports": "off",
+    "newline-per-chained-call": ["error", { "ignoreChainWithDepth": 3 }],
+    "no-confusing-arrow": ["error", {"allowParens": true}],
+    "no-invalid-this": "off",
+    "no-else-return": "off",
+    "global-require": "off",
+    "no-ternary": "off",
+    "no-undef": "off",
+    "react/display-name": "off",
+    "no-underscore-dangle": "off",
+    "object-curly-newline": "off",
+    "object-curly-spacing": ["error", "always"],
+    "quote-props": "off",
+    "radix": "off",
+    "strict": 0,
+    "semi": [2, "never"],
+    "linebreak-style": 0
+  }
+}
