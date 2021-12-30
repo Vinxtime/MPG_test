@@ -40,6 +40,7 @@
     "no-confusing-arrow": ["error", {"allowParens": true}],
     "no-invalid-this": "off",
     "no-else-return": "off",
+    "no-undefined": "off",
     "global-require": "off",
     "no-ternary": "off",
     "no-undef": "off",
