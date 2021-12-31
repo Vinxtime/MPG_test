@@ -1,16 +1,15 @@
 /* eslint-disable max-statements */
-import { StyleSheet, Text, View } from 'react-native'
-import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import React from 'react'
-import { RootStackParamList } from './../RootStackParams'
-import { palette } from '../../utils/palette'
-import { RFValue } from 'react-native-responsive-fontsize'
+import { StyleSheet, Text, TextStyle, View, ViewStyle } from 'react-native'
 import { DataTable } from 'react-native-paper'
-import { headerFields } from '../../utils/index_conversion'
 import MatchesSection from './matches_section'
+import { RFValue } from 'react-native-responsive-fontsize'
+import React from 'react'
+import { headerFields } from '../../utils/index_conversion'
+import { palette } from '../../utils/palette'
 
 interface Array {
   map: Function,
+  find: Function
 }
 
 type PlayerMatchesProps = {
@@ -18,7 +17,15 @@ type PlayerMatchesProps = {
   clubsData: Array
 }
 
-const styles = StyleSheet.create({
+interface Styles {
+  headerTitle: TextStyle,
+  careerStatsSection: ViewStyle,
+  bigTitle: TextStyle,
+  championshipName: TextStyle,
+  text: TextStyle
+}
+
+const styles = StyleSheet.create<Styles>({
   bigTitle: { color: palette.text,
     fontSize: 12,
     fontWeight: '600',
@@ -33,7 +40,7 @@ const styles = StyleSheet.create({
     marginTop: '4%',
     padding: 12
   },
-  championshipName: { fontSize: 14, fontWeight: '600', letterSpacing: -0.2, opacity: 0.54, marginBottom: 8 },
+  championshipName: { fontSize: 14, fontWeight: '600', letterSpacing: -0.2, marginBottom: 8, opacity: 0.54 },
   headerTitle: { color: palette.text,
     fontSize: RFValue(8),
     fontWeight: '600',
@@ -41,10 +48,6 @@ const styles = StyleSheet.create({
     letterSpacing: -0.2,
     opacity: 0.54,
     textTransform: 'uppercase'
-  },
-  root: {
-    flex: 1,
-    justifyContent: 'flex-start'
   },
   text: { color: palette.text, fontSize: RFValue(9), fontWeight: '500', letterSpacing: -0.2 }
 })
@@ -87,7 +90,7 @@ const PlayerStatsSection: React.FC<PlayerMatchesProps> = ({ championships, clubs
                   {`${j === 0 ? item : item.toFixed(1)}`}</Text>
                   </DataTable.Cell>
               ]))}
-            </DataTable.Row>  
+            </DataTable.Row>
             <DataTable.Row>
               {percentageRanksValues.map((item: number | string, j: number) => ([
                 <DataTable.Cell key={j} style={{ justifyContent: 'center' }}>

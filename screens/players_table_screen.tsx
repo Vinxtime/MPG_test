@@ -1,15 +1,15 @@
+/* eslint-disable max-statements */
 import { FlatList, StyleSheet, Text, TextStyle, ViewStyle } from 'react-native'
 import { DataTable } from 'react-native-paper'
-import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { RFValue } from 'react-native-responsive-fontsize'
 import React from 'react'
 import { RootStackParamList } from './RootStackParams'
 import { StackNavigationProp } from '@react-navigation/stack'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 import { headerFields } from '../utils/index_conversion'
 import { palette } from '../utils/palette'
 import positions from '../utils/positions'
 import { useNavigation } from '@react-navigation/native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
 
 interface Styles {
   headerTitle: TextStyle,
@@ -19,10 +19,17 @@ interface Styles {
   text: TextStyle
 }
 
+interface Array {
+  map: Function,
+  find: Function,
+  filter: Function
+}
+
 type StackMainScreenProps = StackNavigationProp<RootStackParamList, 'Main'>
-type PlayersProps = NativeStackScreenProps<RootStackParamList, 'Main'>
-type sortedByProps = {
-  direction: string
+
+type PlayersProps = {
+  playersData: Array,
+  clubsData: Array
 }
 
 const styles = StyleSheet.create<Styles>({
@@ -113,19 +120,17 @@ const PlayersTableScreen: React.FC<PlayersProps> = ({ playersData, clubsData }):
   const _renderFlatList = () => <FlatList data={sortedPlayersData}
     keyExtractor={keyExtractor}
     initialNumToRender={30}
-    extraData={{
-      ...sortDirection
-    }}
+    extraData={sortDirection}
     removeClippedSubviews={true}
     renderItem={({ item, index }) => _renderRow(item, index)}></FlatList>
 
-  const _renderArrowSortable = (field) => {
+  const _renderArrowSortable = (field: string) => {
     const fieldValue = field === 'name' ? 'lastName' : field
     if (fieldValue === sortedBy && sortDirection === 'asc') {
-      // up
+      // Up unicode
       return <Text style={styles.headerTitle}>&#x2191;</Text>
     } else {
-      // down
+      // Down unicode
       return <Text style={styles.headerTitle}>&#x2193;</Text>
     }
   }
@@ -145,7 +150,7 @@ const PlayersTableScreen: React.FC<PlayersProps> = ({ playersData, clubsData }):
             }
           }} style={{ alignItems: 'center', flexDirection: 'row', justifyContent: 'center', paddingTop: '4%' }}>
             <Text style={styles.headerTitle}>{headerFields[field]}</Text>
-            {field === 'name'|| field === 'ultraPosition' ? _renderArrowSortable(field) : null}
+            {field === 'name' || field === 'ultraPosition' ? _renderArrowSortable(field) : null}
           </TouchableOpacity></DataTable.Title>)}
       </DataTable.Header>
 

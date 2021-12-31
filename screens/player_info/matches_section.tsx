@@ -1,5 +1,5 @@
 /* eslint-disable max-statements */
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, TextStyle, View, ViewStyle } from 'react-native'
 import { DataTable } from 'react-native-paper'
 import { RFValue } from 'react-native-responsive-fontsize'
 import React from 'react'
@@ -7,10 +7,19 @@ import { headerFields } from '../../utils/index_conversion'
 import moment from 'moment'
 import { palette } from '../../utils/palette'
 
-const styles = StyleSheet.create({
+interface Styles {
+  dateCell: TextStyle | ViewStyle,
+  gameCell: TextStyle | ViewStyle,
+  headerTitle: TextStyle,
+  matchTitle: TextStyle,
+  text: TextStyle,
+  root: ViewStyle
+}
+
+const styles = StyleSheet.create<Styles>({
   dateCell: {
     flex: 3,
-    justifyContent: 'flex-start',
+    justifyContent: 'flex-start'
   },
   gameCell: {
     flex: 4,
@@ -24,7 +33,7 @@ const styles = StyleSheet.create({
     opacity: 0.54,
     textTransform: 'uppercase'
   },
-  matchTitle: { fontSize: 12, fontWeight: '600', letterSpacing: -0.2, opacity: 0.54, marginVertical: 8 },
+  matchTitle: { fontSize: 12, fontWeight: '600', letterSpacing: -0.2, marginVertical: 8, opacity: 0.54 },
   root: { backgroundColor: palette.overlaySecondary, padding: 12 },
   text: { color: palette.text, fontSize: RFValue(9), fontWeight: '500', letterSpacing: -0.2 }
 })
@@ -75,24 +84,24 @@ const MatchesSection: React.FC<PlayerMatchesProps> = ({ clubsData, allGames }) =
       style={[
         { justifyContent: 'center' },
         field === 'game' && styles.gameCell,
-        field === 'date' && styles.dateCell,
+        field === 'date' && styles.dateCell
       ]}>
         <Text style={styles.headerTitle}>{headerFields[field]}</Text></DataTable.Title>)}
     </DataTable.Header>
     {Object.values(allGames).map((game) => parsedData(game)).map((parsedGame: object, i: number) =>
-    <DataTable.Row key={i}
-      style={{ backgroundColor: isEvenNumber(i) ? palette.overlaySecondary : palette.overlayPrimary }}>
-    {Object.values(parsedGame).map((item, j) => ([
-      <DataTable.Cell key={j} style={[
-        { justifyContent: 'center' },
-        fields[j] === 'game' && styles.gameCell,
-        fields[j] === 'date' && styles.dateCell
-      ]}>
-        <Text style={styles.text}>
-          {`${item}`}</Text>
-      </DataTable.Cell>
-    ]))}
-  </DataTable.Row>
+      <DataTable.Row key={i}
+        style={{ backgroundColor: isEvenNumber(i) ? palette.overlaySecondary : palette.overlayPrimary }}>
+        {Object.values(parsedGame).map((item, j) => ([
+          <DataTable.Cell key={j} style={[
+            { justifyContent: 'center' },
+            fields[j] === 'game' && styles.gameCell,
+            fields[j] === 'date' && styles.dateCell
+          ]}>
+            <Text style={styles.text}>
+              {`${item}`}</Text>
+          </DataTable.Cell>
+        ]))}
+      </DataTable.Row>
     )}
   </DataTable>
 

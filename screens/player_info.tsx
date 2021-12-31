@@ -1,53 +1,32 @@
 /* eslint-disable max-statements */
-import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from 'react-native'
-import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { ActivityIndicator, ScrollView, StyleSheet, Text, TextStyle, View, ViewStyle } from 'react-native'
 import { RouteProp, useRoute } from '@react-navigation/native'
-import React from 'react'
 import { API_PLAYER_DETAIL } from './../utils/urls'
+import PlayerStatsSection from './player_info/stats_section'
+import { RFValue } from 'react-native-responsive-fontsize'
+import React from 'react'
 import { RootStackParamList } from './RootStackParams'
 import axios from 'axios'
 import { palette } from '../utils/palette'
 import positions from '../utils/positions'
-import { RFValue } from 'react-native-responsive-fontsize'
-import { DataTable } from 'react-native-paper'
-import { headerFields } from '../utils/index_conversion'
-import PlayerStatsSection from './player_info/stats_section'
 
 type RouteMainScreenProps = RouteProp<RootStackParamList, 'PlayerInfo'>
 
-const styles = StyleSheet.create({
-  basicSectionRoot: {
-    alignItems: 'center',
+interface Styles {
+  basicSectionRoot: ViewStyle,
+  clubName: TextStyle,
+  playerName: TextStyle,
+  positionView: ViewStyle,
+  root: ViewStyle,
+  text: TextStyle
+}
+const styles = StyleSheet.create<Styles>({
+  basicSectionRoot: { alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
     marginTop: '4%'
   },
-  bigTitle: { color: palette.text,
-    fontSize: 12,
-    fontWeight: '600',
-    justifyContent: 'center',
-    letterSpacing: -0.2,
-    marginBottom: 8,
-    opacity: 0.54,
-    textTransform: 'uppercase'
-  },
-  careerStatsSection: {
-    backgroundColor: palette.overlayPrimary,
-    borderRadius: 5,
-    marginTop: '4%',
-    paddingVertical: 12,
-    paddingHorizontal: 12
-  },
-  championshipName: { fontSize: 14, fontWeight: '600', letterSpacing: -0.2, opacity: 0.54, marginBottom: 8 },
   clubName: { fontSize: 18, fontWeight: '600', letterSpacing: -0.2, opacity: 0.54 },
-  headerTitle: { color: palette.text,
-    fontSize: RFValue(8),
-    fontWeight: '600',
-    justifyContent: 'center',
-    letterSpacing: -0.2,
-    opacity: 0.54,
-    textTransform: 'uppercase'
-  },
   playerName: { fontSize: 18, fontWeight: '600', letterSpacing: -0.2, marginRight: 4 },
   positionView: {
     alignItems: 'center',
@@ -63,9 +42,20 @@ const styles = StyleSheet.create({
 
 })
 
-type PlayerInfoProps = NativeStackScreenProps<RootStackParamList, 'PlayerInfo'>
+interface PlayerData {
+  championships: object
+}
+
+interface Array {
+  find: Function
+}
+
+type PlayerInfoProps = {
+  clubsData: Array
+}
+
 const PlayerInfoScreen: React.FC<PlayerInfoProps> = ({ clubsData }) => {
-  const [playerData, setPlayerData] = React.useState<Array>([])
+  const [playerData, setPlayerData] = React.useState<PlayerData>([])
   const [loading, setIsLoading] = React.useState<Boolean>(true)
   const route = useRoute<RouteMainScreenProps>()
   const loadData = () => {
@@ -88,7 +78,7 @@ const PlayerInfoScreen: React.FC<PlayerInfoProps> = ({ clubsData }) => {
     })
 
     const stringifyClubs = flattenedClubs.flat().map((clubId) =>
-      clubsData.find(item => item.id === clubId).name
+      clubsData.find((item: { id: number }) => item.id === clubId).name
     ).join(', ')
     return stringifyClubs
   }
