@@ -47,6 +47,8 @@
     "react/display-name": "off",
     "no-underscore-dangle": "off",
     "object-curly-newline": "off",
+    "no-magic-numbers": "off",
+    "function-call-argument-newline": "off",
     "object-curly-spacing": ["error", "always"],
     "quote-props": "off",
     "radix": "off",
