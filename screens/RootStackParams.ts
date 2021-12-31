@@ -1,4 +1,15 @@
+interface Array {
+  map: Function,
+  find: Function,
+  filter: Function
+}
+
 export type RootStackParamList = {
-  Main: undefined,
-  PlayerInfo: undefined
+  Main: {
+    playersData: Array,
+    clubsData: Array
+  },
+  PlayerInfo: {
+    playerId: string
+  }
 }
