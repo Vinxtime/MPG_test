@@ -1,0 +1,23 @@
+export const headerFields = {
+  Type: 'type',
+  averageRating: 'Note',
+  clubId: 'Club',
+  date: 'Date',
+  day: 'Journée',
+  game: 'Match',
+  matchesPlayed: 'App',
+  name: 'Nom',
+  percentageCleanSheet: 'Cleansheet',
+  percentagePenaltyStopped: 'Pen. Arr %',
+  percentageStarter: 'Starter %',
+  performance: 'Perf',
+  quotation: 'Côte',
+  ratioBigChanceCreated: 'Occas. crée / m',
+  ratioGoals: 'Buts / m',
+  ratioGoalsConceded: 'Buts encaissé / m',
+  ratioInterceptions: 'Arrets / m',
+  ratioSaves: 'Arret / frappe',
+  ratioScoringAtt: 'Tent. but',
+  totalGoals: 'Buts',
+  ultraPosition: 'Poste'
+}
